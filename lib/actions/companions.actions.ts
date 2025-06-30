@@ -3,6 +3,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { createSupabaseClient } from "../supabase";
 
+// ? Create a New Companion
+
 export const createCompanion = async (formdata: CreateCompanion) => {
   const { userId: author } = await auth();
   const supabase = createSupabaseClient();
@@ -17,6 +19,8 @@ export const createCompanion = async (formdata: CreateCompanion) => {
 
   return data[0];
 };
+
+// ? Fetch All Companions
 
 export const getAllCompanions = async ({
   limit = 10,
@@ -45,4 +49,19 @@ export const getAllCompanions = async ({
   if (error) throw new Error(error.message);
 
   return companions;
+};
+
+// ? Fetch a companion
+
+export const getCompanion = async (id: string) => {
+  const supabase = createSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("companions")
+    .select()
+    .eq("id", id);
+
+  if (error) throw new Error(error.message);
+
+  return data[0];
 };
