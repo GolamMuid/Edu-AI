@@ -11,11 +11,9 @@ const page = async ({ searchParams }: SearchParams) => {
 
   const companions = await getAllCompanions({ subject, topic });
 
-  console.log(companions);
-
   return (
     <main>
-      <section className="flex justify-between gap-4 max-snm:flex-col">
+      <section className="flex justify-between gap-4 max-sm:flex-col">
         <h1> Companion Library </h1>
         <div className="flex gap-4">
           <SearchInput />
@@ -23,8 +21,8 @@ const page = async ({ searchParams }: SearchParams) => {
         </div>
       </section>
 
-      <section className="comapnions-grid">
-        {companions.map((companion) => (
+      <section className="companions-grid">
+        {companions?.map((companion) => (
           <CompanionCard
             key={companion.id}
             {...companion}
